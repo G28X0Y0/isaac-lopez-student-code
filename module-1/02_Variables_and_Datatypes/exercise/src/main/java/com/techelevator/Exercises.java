@@ -428,7 +428,7 @@ public class Exercises {
         */
 		int carrots = 74;
 		int people = 12;
-		int leftCarrots = 74 % people;
+		int leftCarrots = carrots % people;
 		System.out.println(leftCarrots);
 
 
