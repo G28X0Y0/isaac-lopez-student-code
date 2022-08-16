@@ -1,8 +1,5 @@
 package com.techelevator;
 
-import javax.swing.*;
-import java.security.KeyStore;
-
 public class Exercises {
 
 
@@ -218,7 +215,7 @@ public class Exercises {
 	public boolean endsLy(String str) {
 		if (str.length() <= 1) {
 			return false;
-		} else if (str.substring(str.length() - 2).equals("ly")) {
+		} else if (str.endsWith("ly")) {
 			return true;
 		}
 		return false;
@@ -339,7 +336,7 @@ public class Exercises {
 	public int countXX(String str) {
 		int counter = 0;
 		for (int i = 0; i < str.length() - 1; i++) {
-			if (str.substring(i, i + 2).equals("xx")) {
+			if (str.startsWith("xx", i)) {
 				counter += 1;
 			}
 		}
@@ -354,17 +351,13 @@ public class Exercises {
 	 doubleX("xxxxx") → true
 	 */
 	public boolean doubleX(String str) {
-		int index = str.indexOf("x", 0);
+		int index = str.indexOf("x");
 		if (index < 0) {
 			return false;
 		} else if (str.equals("xx")) {
 			return true;
 		} else if (index + 2 < str.length()) {
-			if (str.substring(index, index + 2).equals("xx")) {
-				return true;
-			} else {
-				return false;
-			}
+			return str.startsWith("xx", index);
 		}
 		return false;
 	}
@@ -428,7 +421,7 @@ public class Exercises {
 	 */
 	public String stringX(String str) {
 		String[] arr = str.split("");
-		String result = "";
+		String result;
 		result = arr[0];
 		if(arr.length == 1 && arr[0].equals("x")){
 			return "x";

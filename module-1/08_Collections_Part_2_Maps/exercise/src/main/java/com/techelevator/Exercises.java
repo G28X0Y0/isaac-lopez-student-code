@@ -32,9 +32,30 @@ public class Exercises {
 	 * animalGroupName("rhino") -> "Crash"
 	 * animalGroupName("elephants") -> "unknown"
 	 *
+	 *
+	 *  rhiNO
 	 */
 	public String animalGroupName(String animalName) {
-		return null;
+		Map<String, String> animals = new HashMap<>();
+		animals.put("Rhino", "Crash");
+		animals.put("Giraffe", "Tower");
+		animals.put("Elephant", "Herd");
+		animals.put("Lion", "Pride");
+		animals.put("Crow", "Murder");
+		animals.put("Pigeon", "Kit");
+		animals.put("Flamingo", "Pat");
+		animals.put("Deer", "Herd");
+		animals.put("Dog", "Pack");
+		animals.put("Crocodile", "Float");
+		if (animalName == null || animalName.length() <= 0) {
+			return "unknown";
+		}
+		String unCase = animalName.substring(0, 1).toUpperCase() + animalName.substring(1).toLowerCase();
+		if (animals.get(unCase) != null) {
+			return animals.get(unCase);
+		} else {
+			return "unknown";
+		}
 	}
 
 	/*
@@ -60,7 +81,24 @@ public class Exercises {
 	 *
 	 */
 	public double isItOnSale(String itemNumber) {
-		return -1.0;
+		Map<String, Double> amazonPrimeDayWasAwesomeThisYear = new HashMap<String, Double>();
+		amazonPrimeDayWasAwesomeThisYear.put("KITCHEN4001", 0.20);
+		amazonPrimeDayWasAwesomeThisYear.put("GARAGE1070", 0.15);
+		amazonPrimeDayWasAwesomeThisYear.put("LIVINGROOM", 0.10);
+		amazonPrimeDayWasAwesomeThisYear.put("KITCHEN6073", 0.40);
+		amazonPrimeDayWasAwesomeThisYear.put("BEDROOM3434", 0.60);
+		amazonPrimeDayWasAwesomeThisYear.put("BATH0073", 0.15);
+
+		if (itemNumber == null || itemNumber.length() <= 0) {
+			return 0.00;
+		}
+		String unCase = itemNumber.substring(0).toUpperCase();
+
+		if (amazonPrimeDayWasAwesomeThisYear.get(unCase) != null) {
+			return amazonPrimeDayWasAwesomeThisYear.get(unCase);
+		} else {
+			return 0.00;
+		}
 	}
 
 	/*
@@ -74,7 +112,18 @@ public class Exercises {
 	 *
 	 */
 	public Map<String, Integer> robPeterToPayPaul(Map<String, Integer> peterPaul) {
-		return null;
+		boolean paulOverTen = peterPaul.get("Paul") >= 1000;
+		int peterMoney = peterPaul.get("Peter");
+		int paulMoney = peterPaul.get("Paul");
+		if (peterMoney > 0 && !paulOverTen) {
+			int rob = peterPaul.get("Peter") / 2;
+			peterPaul.put("Paul", paulMoney + rob);
+			peterPaul.put("Peter", peterMoney - rob);
+			return peterPaul;
+
+		}
+		return peterPaul;
+
 	}
 
 	/*
@@ -87,7 +136,14 @@ public class Exercises {
 	 *
 	 */
 	public Map<String, Integer> peterPaulPartnership(Map<String, Integer> peterPaul) {
-		return null;
+		int peterMoney = peterPaul.get("Peter");
+		int paulMoney = peterPaul.get("Paul");
+		if (peterMoney >= 5000 && paulMoney >= 10000) {
+			peterPaul.put("PeterPaulPartnership", (int) ((paulMoney * .25) + (peterMoney * .25)));
+			peterPaul.put("Peter", peterMoney - (int) (peterMoney * .25));
+			peterPaul.put("Paul", paulMoney - (int) (paulMoney * .25));
+		}
+		return peterPaul;
 	}
 
 	/*
@@ -99,7 +155,12 @@ public class Exercises {
 	 * beginningAndEnding(["muddy", "good", "moat", "good", "night"]) → {"g": "d", "m": "t", "n": "t"}
 	 */
 	public Map<String, String> beginningAndEnding(String[] words) {
-		return null;
+		Map<String, String> resultMap = new HashMap<>();
+		for (String word : words) {
+			String[] currentWordArr = word.split("");
+			resultMap.put(currentWordArr[0], currentWordArr[currentWordArr.length - 1]);
+		}
+		return resultMap;
 	}
 
 	/*
@@ -115,7 +176,19 @@ public class Exercises {
 	 *
 	 */
 	public Map<String, Integer> wordCount(String[] words) {
-		return null;
+		Map<String, Integer> resultMap = new HashMap<>();
+		for (String word : words) {
+			int count = 0;
+			for (String s : words) {
+				if (word.equals(s)) {
+					count += 1;
+				}
+				resultMap.put(word, count);
+			}
+
+		}
+		return resultMap;
+
 	}
 
 	/*
@@ -130,7 +203,19 @@ public class Exercises {
 	 *
 	 */
 	public Map<Integer, Integer> integerCount(int[] ints) {
-		return null;
+		Map<Integer, Integer> resultMap = new HashMap<>();
+		for (int i : ints) {
+			int count = 0;
+			for (int anInt : ints) {
+				if (i == anInt) {
+					count += 1;
+				}
+				resultMap.put(i, count);
+			}
+
+		}
+		return resultMap;
+
 	}
 
 	/*
@@ -143,7 +228,29 @@ public class Exercises {
 	 *
 	 */
 	public Map<String, Boolean> wordMultiple(String[] words) {
-		return null;
+		Map<String, Integer> countMap = new HashMap<>();
+		Map<String, Boolean> resultMap = new HashMap<>();
+		for (String word : words) {
+			int count = 0;
+			for (String s : words) {
+				if (word.equals(s)) {
+					count++;
+				}
+				countMap.put(word, count);
+			}
+		}
+
+		for (Map.Entry<String, Integer> currentCount : countMap.entrySet()) {
+			int count = currentCount.getValue();
+			if (count <= 1) {
+				resultMap.put(currentCount.getKey(), false);
+			} else {
+				resultMap.put(currentCount.getKey(), true);
+			}
+		}
+
+		return resultMap;
+
 	}
 
 	/*
@@ -157,8 +264,19 @@ public class Exercises {
 	 *
 	 */
 	public Map<String, Integer> consolidateInventory(Map<String, Integer> mainWarehouse,
-			Map<String, Integer> remoteWarehouse) {
-		return null;
+													 Map<String, Integer> remoteWarehouse) {
+		Map<String, Integer> resultMap = new HashMap<>();
+		for(Map.Entry<String, Integer> current: mainWarehouse.entrySet()) {
+			if (remoteWarehouse.containsKey(current.getKey())) {
+				resultMap.put(current.getKey(), remoteWarehouse.get(current.getKey()) + current.getValue());
+				remoteWarehouse.remove(current.getKey());
+			} else {
+				resultMap.put(current.getKey(), current.getValue());
+			}
+		}
+		resultMap.putAll(remoteWarehouse);
+
+		return resultMap;
 	}
 
 	/*
@@ -177,7 +295,18 @@ public class Exercises {
 	 *
 	 */
 	public Map<String, Integer> last2Revisited(String[] words) {
-		return null;
+		Map<String, Integer> resultMap = new HashMap<>();
+		for (String word : words) {
+			int counter = 0;
+			String letters = word.substring(word.length() - 2);
+			String[] currentWordArr = word.split("");
+			for (int j = 0; j < currentWordArr.length - 2; j++) {
+				if ((currentWordArr[j] + currentWordArr[j + 1]).equals(letters)) {
+					counter += 1;
+				}
+			}
+			resultMap.put(word, counter);
+		}
+		return resultMap;
 	}
-
 }
